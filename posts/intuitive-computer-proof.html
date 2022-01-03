@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Intuitive Computer Proofs - Negabinary</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Otomanopee+One&family=Roboto&display=swap" rel="stylesheet">
+        <link rel = "stylesheet" type = "text/css" href = "/main.css">
+    </head>
+	
+    <body>
+        <br>
+        <a href="../index.html"> &lt Home </a>
+        
+        <div class=section>
+            <h2> Doing computer proof intuitively </h2>
+            
+            <p class=dream>This page is largely a summary of a talk I gave at Churchill College Cambridge in October 2020 entitled "A graph of all mathematics".</p>
+            
+            <h3> The Curry-Howard correspondence </h3>
+            
+            <p>The Curry-Howard corresponence is a very cool and important result in theoretical computer science. In short it tells us that mathematical proofs are basically the same thing as functional programs, which allows programmers to steal all of pure mathematics' best ideas.</p>
+            
+            <p>I'm going to run through a simple example because it can be quite confusing to understand at first. Let's say we know (1) that if it is raining it will be muddy, and (2) if it will be muddy we should wear boots. We want to prove that (3) if it is raining we should wear boots.</p>
+            
+            <p>We can represent (1) and (2) as functions. f<sub>1</sub> takes knowledge that it it is raining and returns knowledge that it will be muddy. f<sub>2</sub> takes knkowledge that it will be muddy and returns knowledge that we should wear boots.</p>
+            
+            <p>Now to write a function that takes knowledge that it is raining and returns knowledge that we should wear boots is trivial. def f<sub>3</sub>(x): f<sub>2</sub>(f<sub>1</sub>(x)).</p>
+            
+            <h3>Too much Curry-Howard!</h3>
+            
+            <p>The Curry-Howard corrresponence is the underlying basis for most of the computer proof assistants in use today. But the Curry-Howard correspondence only takes something most people understand (maths) and turn it into something that almost no-one understands (functional programming). As a result, only funcional programmers are getting excited about computer proof at the moment!</p>
+            
+            <p>So I'm going to present what I think is a more natural approach. It's based on graphs (the dots-and-lines kind) but the graphs are laid out very similar to how we lay proofs out on paper. </p>
+            
+            TODO: Finish
+            
+        </div>
+        
+        <br>
+        
+    </body>
+
+</html>
