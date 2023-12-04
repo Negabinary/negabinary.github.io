@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Reactive Proof - Negabinary</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Otomanopee+One&family=Roboto&display=swap" rel="stylesheet">
+        <link rel = "stylesheet" type = "text/css" href = "../tufte.css">
+    </head>
+	
+    <body>
+        <br>
+        <a href="../index.html"> &lt Home </a>
+        
+    <article>
+        <h1> Reactive Proof </h1>
+        <p class="subtitle"> An introduction to the architecture behind Math-Playground </p>
+
+        <section>
+            <p> Math Playground is a GUI for creating computer proofs. Unlike many other proof assistant UIs, which are text-editor-based, Math Playground takes an interactivity-first approach. Text-editor-based proof assistants usually either allow the user to compile a file all in one go, or to compile the program one line at a time, allowing the user to recieve feedback on the previous line before typing the next line. </p>
+
+            <p> Math playground aims to take interactivity to the next level by allowing users to build proofs out of order. One study<label for="repl-instrumentation" class="margin-toggle sidenote-number"></label><input type="checkbox" id="repl-instrumentation" class="margin-toggle"/><span class="sidenote">Talia Ringer, Alex Sanchez-Stern, Dan Grossman, and Sorin Lerner. 2020. REPLica: REPL instrumentation for Coq analysis. In Proceedings of the 9th ACM SIGPLAN International Conference on Certified Programs and Proofs (CPP 2020). Association for Computing Machinery, New York, NY, USA, 99–113. <a href="https://doi.org/10.1145/3372885.3373823">https://doi.org/10.1145/3372885.3373823</a></span> looking at the Coq proof language showed that over 75% of proof sessions "began a proof, only to step above the entire proof attempt and return to make changes to earlier definitions or commands". In a text-editor-based proof assistant, this would involve stepping back up to the definition, changing the definition, and then stepping back down through the proof. In Math Playground, however, we want the user to, in most cases, be able to edit a definition anywhere in the file, and lose only directly affected parts of the proof.</p>
+
+            <p> We achieve propagation of changes by use of a novel data structure to store the proof. In this data structure, any small change the user makes can be done with a genuinely small modification to the data structure. What the user sees is an abstraction over that data structure  </p>
+        </section>
+
+        <section>
+            <h2> The Interface </h2>
+
+            
+        </section>
+
+        <section>
+            <h2> Desired Behaviour </h2>
+
+            <p> Let's look at some modifications users may make to earlier parts of the proof, and the desired effect they would have on later parts of the proof. </p>
+
+            <p> To clarify a couple points of terminology, when I refer to a "definition", I am simply referring to the declaration of an identifier that can be used in that context. Any properties of that identifier are an "assumption". For example, if we <code>define false as ¬ true</code>, then <code>define false</code> is a definition and <code>false = ¬ true</code> is an assumption.</p>
+
+            <ul>
+                <li> <em>Renaming a definition</em> - in this case we would like all later occurences of that definition to be renamed.</li>
+
+                <li> <em>Deleting a definition</em> - in this case we would like all later occurences of that definition to be suspended. We do not want want to delete further occurences, in case the user deleted the definition by mistake, however we cannot mark proofs that are using a deleted definition as valid, so we suspend them. </li>
+
+                <li> <em>Moving a definition</em> - in this case, unless the definition is moved below an instance (in which it is effectively deleted to that instance), we would like the proof to be unaffected. </li>
+
+                <li> <em>Adding a definition</em> - the proof below should remain unchanged. (even if the new definition's name overshadows a previous definition that is used below) </li>
+            </ul>
+
+            <ul>
+                <li> <em>Deleting an assumption</em> - any proofs using that assumption should no longer be able ot use that assumption, and should be marked as incomplete. </li>
+
+                <li> <em>Adding an assumption</em> - if the assumption matches any open goals in the proof below, the proof below should use the assumption. </li>
+
+                <li> <em>Moving an assumption</em> - The proofs below should remain unchanged, unless the assumption is moving below a proof in which it is used, in which case the assumption should be deleted in that proof. </li>
+
+                <li> <em>Changing an assumption</em> - by changing an assumption we have effectively deleted the old assumption and added a new one. </li>
+            </ul>
+
+            <p>Note some of these effects may cause a chain. For example, if a definition is deleted, it may cause an assumption to be suspended, causing a later proof to be marked incomplete.</p>
+            
+        </section>
+    </article>        
+    </body>
+
+</html>
